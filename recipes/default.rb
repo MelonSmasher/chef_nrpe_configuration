@@ -4,11 +4,16 @@
 #
 
 def create_template(source_template, path, notify)
-  template path do
-    if notify
-      notifies :restart, 'service[nscp]'
+
+  if notify
+    template path do
+      source source_template
+      notifies :restart, 'service[nscp]', :immediately
     end
-    source source_template
+  else
+    template path do
+      source source_template
+    end
   end
 end
 
