@@ -29,7 +29,7 @@ Tells this cookbook where to look for the NS Clients.
 
 Default Value: 
 
-- Windows: `C:/Program Files/NSClient++/`
+- `C:/Program Files/NSClient++/`
 
 Ruby usage:
 
@@ -47,6 +47,31 @@ JSON usage:
 }
 ```
 ###### Note: forward slashes are used for Windows paths in Ruby.
+
+
+### Notify Service:
+
+Tells the `nscp` service to restart after the configuration has changed.
+
+Default Value: 
+
+- `false`
+
+Ruby usage:
+
+```ruby
+node['nrpe_configuration']['notify_service'] = true
+```
+
+JSON usage:
+
+```json
+{
+  "nrpe_configuration": {
+    "notify_service": true
+  }
+}
+```
 
 ### Settings:
 

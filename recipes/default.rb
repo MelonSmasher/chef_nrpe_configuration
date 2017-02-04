@@ -3,8 +3,11 @@
 # Recipe:: default
 #
 
-def create_template(source_template, path)
+def create_template(source_template, path, notify)
   template path do
+    if notify
+      notifies :restart, 'service[nscp]'
+    end
     source source_template
   end
 end
@@ -15,11 +18,13 @@ install_path = File.join(node['nrpe_configuration']['install_directory'], "")
 # Make sure that directory exists
 if File.directory?(install_path)
 
+  notify_service = node['nrpe_configuration']['notify_service']
+
   # Devise the config file path
   ini_file_path = File.join(install_path, 'nsclient.ini')
 
   # Create the file from the template
-  create_template('nsclient.ini.erb', ini_file_path)
+  create_template('nsclient.ini.erb', ini_file_path, notify_service)
 
 else
   # If it does not exists throw a fatal error
