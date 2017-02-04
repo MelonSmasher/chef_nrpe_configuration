@@ -6,6 +6,9 @@
 def create_template(source_template, path, notify)
 
   if notify
+    service 'nscp' do
+      action :start
+    end
     template path do
       source source_template
       notifies :restart, 'service[nscp]', :immediately
